@@ -22,8 +22,8 @@ Hi Im Louis Im a Computer Science undergraduate student. Im interested in the be
 
 ###
 ### Week 1 (June 25-29):
--Learn about genetic variation, and pathogenic and benign variants
+- Learn about genetic variation, and pathogenic and benign variants
 - Read sugested paper
   - [Evaluation of in silico algorithms for use with ACMG/AMP clinical variant interpretation guidelines.](https://www.ncbi.nlm.nih.gov/pubmed/29179779)
 - Filter "first_versions_of_variants_in_enigma_barring_first_release_ammended.csv" by release date, being analyzed by ENIGMA and single substitution
--Run VEST online (download version is not up to date)
+- Run VEST online (download version is not up to date)
