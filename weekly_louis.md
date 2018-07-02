@@ -21,7 +21,7 @@ Hi Im Louis Im a Computer Science undergraduate student. Im interested in the be
 ### During this semester we'll be working in the use and understand of protein structure to identify pathogenicity. I will be using VEST a program that analyses gene variation and FoldX for observing variants in protein structure. Our goal is to find out if the use of observing protein structure, adds values to just using the genes as predictors for pathogenicity. As normal (gold standard) we will be using data analysed by ENIGMA. 
 
 ###
-### Week 1 ():
+### Week 1 (June 25-29):
 -Learn about genetic variation, and pathogenic and benign variants
 - Read sugested paper
   - [Evaluation of in silico algorithms for use with ACMG/AMP clinical variant interpretation guidelines.](https://www.ncbi.nlm.nih.gov/pubmed/29179779)
