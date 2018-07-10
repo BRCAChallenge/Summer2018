@@ -2,7 +2,7 @@
 Script that converts the notation given by the REVEL website for a genetic variant to genomic
 coordinate notation (for hg38). The script needs two command line arguments to run, which specify
 the csv file to read from's path and the txt file to read to's path.
-call the script as:
+Call the script as:
 python REVELChromosomeTest.py <file to read from> <file to write to>
 
 """
