@@ -5,6 +5,7 @@ formatted into file with path specified by the command-line.
 Call the script as:
 python VepParser.py <file to read from> <file to write to>
 """
+
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
 #------------------------------------------------------------------------------------------------

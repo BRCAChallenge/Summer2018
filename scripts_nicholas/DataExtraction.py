@@ -4,8 +4,8 @@ each line has a variant with genomic coordinate and variation (relative to hg38)
 the pathogenicity.
 Call the script as:
 python Data DataExtraction.py <file to read from> <file to write to>
-
 """
+
 #------------------------------------------------------------------------------------------------
 import csv # For csv file read/write
 import sys # For command-line arguments
