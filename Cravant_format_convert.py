@@ -1,6 +1,6 @@
 #######################
 ## Louis Gil         ##
-## BRACA EXANGE 	 ##
+## BRCA EXANGE 	     ##
 ## INPUT for Cravant ##
 #######################
 import pandas as pd;
