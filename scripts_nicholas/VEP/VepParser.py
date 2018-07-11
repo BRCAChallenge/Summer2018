@@ -1,10 +1,10 @@
-"""
-Script that searches through the data file provided by the VEP Web Tool for: (1) the genomic
-coordinate of the variant for hg38, (2) the pathogenicity of the variant. Outputs are then 
-formatted into file with path specified by the command-line.
-Call the script as:
-python VepParser.py <file to read from> <file to write to>
-"""
+################################################################################################
+# Script that searches through the data file provided by the VEP Web Tool for: (1) the genomic
+# coordinate of the variant for hg38, (2) the pathogenicity of the variant. Outputs are then 
+# formatted into file with path specified by the command-line.
+# Call the script as:
+# python VepParser.py <file to read from> <file to write to>
+################################################################################################
 
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
