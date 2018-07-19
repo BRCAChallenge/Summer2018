@@ -1,15 +1,15 @@
-"""
-Script that extracts data given in a csv file. Writes to file called reference.txt that on
-each line has a variant with genomic coordinate and variation (relative to hg38) along with
-the pathogenicity.
-Call the script as:
-python Data DataExtraction.py <file to read from> <file to write to>
-"""
+################################################################################################
+# Script that extracts data given in a csv file. Writes to file that on each line has a variant
+# with genomic coordinate and variation (relative to hg38) along with the pathogenicity.
+# Call the script as:
+# python DataExtraction.py <file to read from> <file to write to>
+################################################################################################
 
 #------------------------------------------------------------------------------------------------
 import csv # For csv file read/write
 import sys # For command-line arguments
 #------------------------------------------------------------------------------------------------
+
 # Extracts from a file named out.csv on the desktop.
 with open(sys.argv[1], newline='') as csvfile: 
   referenceFile = open(sys.argv[2], 'w+') # Opens reference.txt for writing
