@@ -13,9 +13,10 @@ fileRead = open(sys.argv[1], "r")
 lines = fileRead.readlines()
 fileRead.close()
 
+lines.sort()
+
 fileWrite = open(sys.argv[1], "w")
 for line in lines:
-	parsedLine = line.split('\t')
-	if ( "BRCA1" in parsedLine or "BRCA2" in parsedLine ):
+	if ( "BRCA1" in line or "BRCA2" in line or line[0] == '#' ):
 		fileWrite.write(line)
 fileWrite.close()

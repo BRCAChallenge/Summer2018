@@ -1,41 +1,70 @@
 ################################################################################################
-# Script that extracts data given in a csv file. Writes to file that on each line has a variant
-# with genomic coordinate and variation (relative to hg38) along with the pathogenicity.
+# Script that extracts the genomic coordinate (and) pathogenicity of all variants from a csv/tsv
+# file and writes the contents to a new file (preferable a txt file).
 # Call the script as:
-# python DataExtraction.py <file to read from> <file to write to>
+# python data_extraction.py <file to read from> <file to write to>
 ################################################################################################
 
 #------------------------------------------------------------------------------------------------
 import csv # For csv file read/write
 import sys # For command-line arguments
+import pandas as pd
+import re
 #------------------------------------------------------------------------------------------------
 
-# Extracts from a file named out.csv on the desktop.
-with open(sys.argv[1], newline='') as csvfile: 
-  referenceFile = open(sys.argv[2], 'w+') # Opens reference.txt for writing
-  reader = csv.reader(csvfile, delimiter=' ', quotechar='|') # Creates csv reader
-  variantList = []
-  for variant in reader: # Iterates through each row in the reader
-    variantProperies = variant[0].split(",") # Elements of the row become elements of a list
-    newString = ""
-    newString += variantProperies[1] + '\t'
-    for item in variantProperies: # Iterates through the line looking for key words
-      newerList = item.split(",") # Each comma dilineated string becomes an element of a newer list
-      strippedList = [element.strip('\"') for element in newerList]
-      print(strippedList)
-      if ( "Benign" in strippedList ): # Checks if the variant is benign
-        newString += "Benign "
-      if ( "Likely_benign" in strippedList ): # Checks if the variant is "likely benign"
-        newString += "Likely_benign "
-      if ( "Uncertain_significance" in strippedList ): # Checks if the variant is "uncertain"
-        newString += "Uncertain_significance "
-      if ( "Pathogenic" in strippedList ): # Checks if the variant is pathogenic
-        newString += "Pathogenic "
-      if ( "Likely_pathogenic" in strippedList ): # Checks if the variant is "likely pathogenic"
-        newString += "Likely_pathogenic "
-    variantList.append(newString)
-  variantList.sort()
-  for variant in variantList:
-    referenceFile.write(variant)
-    referenceFile.write('\n')
-  referenceFile.close()
+## Prints each column of a dataframe with its corresponding index (indexed like a matrix).
+#       @param _dataframe : The dataframe to print contents from.
+#
+def print_columns_with_index(_dataframe):
+	for index in range(len(_dataframe.columns)):
+		print( '(' + str((index + 1)) + ') ' + _dataframe.columns[index])
+
+## Asks the user for an answer, repeats asking until the user provides 'y', 'Y', 'n', or 'N'
+#       @param phrase  : The phrase to ask.
+#		@return answer : The user's valid answer.
+#
+def get_yes_no(phrase):
+	answer = ''
+	while ( not ((answer == 'y') | (answer == 'Y') | (answer == 'n') | (answer == 'N')) ):
+		answer = input(phrase)
+	return answer
+
+## Asks the user for an answer, repeats asking until the user provides an integer type answer.
+#       @param phrase  : The phrase to ask.
+#		@return answer : The user's valid answer.
+#
+def get_int_answer(phrase):
+	answer = ''
+	while ( not isinstance(answer, int) ):
+		answer = input(phrase)
+		if( answer.isdigit() ):
+			answer = int(answer)
+	return answer
+
+#------------------------------------------------------------------------------------------------
+# Records the appropriate separator for the flat file.
+if ( re.search('(?<=.)csv', sys.argv[1]) ):
+  sep = ','
+elif ( re.search('(?<=.)tsv', sys.argv[1]) ):
+  sep = '\t'
+
+# Opens flat file for reading, opens file for writing.
+df = pd.read_csv(sys.argv[1], sep=sep, header=0)
+write_file = open(sys.argv[2], 'w+')
+
+# Prompts the user for input.
+print_columns_with_index(df)
+col1 = get_int_answer('What is the number of the column to sort by? ')
+coordinate_column = list(df.columns)[col1 - 1]
+df.sort_values(by=df.columns[col1-1])
+first_question = get_yes_no('Write pathogenicity (y/n)? ')
+second_question = get_int_answer('Pathogenicity\'s column number? ')
+pathogenicity_column = list(df.columns)[second_question - 1]
+
+# For each row in the dataframe, writes the genomic coordinate and pathogenciity to the output file.
+for index, row in df.iterrows():
+	write_file.write(df[coordinate_column].iloc[index] + '\t')
+	if ( (first_question == 'y') | (first_question == "Y") ):
+		write_file.write(df[pathogenicity_column].iloc[index]+ '\n')
+
+write_file.close()
