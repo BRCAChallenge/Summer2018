@@ -14,11 +14,6 @@ readFile.close()
 
 writeFile = open(sys.argv[1], "w") # Opens the given file for writing.
 for line in lines: # Checks every line for "BRCA1" or "BRCA1". If not present removes the line.
-	parsedLine = line.split('\t')
-	if ( parsedLine[3] == "BRCA2" ):
-		if ( parsedLine[4] == "NM_000059.3" ):
-			writeFile.write(line)
-	else: 
-		if ( parsedLine[4] == "NM_007294.3"):
+	if ( "NM_000059.3" in line | "NM_007294.3" in line ):
 			writeFile.write(line)
 writeFile.close()

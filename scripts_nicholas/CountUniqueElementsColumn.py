@@ -6,17 +6,16 @@
 
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
+import pandas as pd
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 
-fileRead = open(sys.argv[1], "r")
+sep = mf.separator_csv_or_tsv(sys.argv[1])
+df = pd.read_csv(sys.argv[1], sep=sep, header=0)
+
+mf.print_columns_with_index(df)
 column_number = mf.get_int_answer('What column should be accumulated? ')
+column_name = list(df.columns)[column_number - 1]
 
-variants = []
-for variant in fileRead: # Adds every string in a given column to the list variants.
-	parsedVariant = variant.split('\t')
-	variants.append(parsedVariant[column_number])
-
-fileRead.close()
-print (len(set(variants))) # Construction of the set removes the duplicates in variants.
+print(len(pd.unique(df[column_name])))

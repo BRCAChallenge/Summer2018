@@ -30,12 +30,19 @@ def get_yes_no(phrase):
 		answer = input(phrase)
 	return answer
 
+
+"""
+def header_size(filename):
+	count = 0
+	for chunk in pd.read_csv(filename, chunksize=10):
+"""
+
 ## Prints each column of a dataframe with its corresponding index (indexed like a matrix).
 #       @param _dataframe : The dataframe to print contents from.
 #
 def print_columns_with_index(dataframe):
 	for index in range(len(dataframe.columns)):
-		print( '(' + str((index + 1)) + ') ' + _dataframe.columns[index] )
+		print( '(' + str((index + 1)) + ') ' + dataframe.columns[index] )
 
 ## Returns string '\t' if the filename ends in .tsv or ',' if the filename ends in .csv
 #       @param filename : The file to assess.
