@@ -1,4 +1,4 @@
- ################################################################################################
+################################################################################################
 # This script removes every variant that is not contained within BRCA1 and BRCA2 in the list of
 # variants in a flat file.
 # Call the script as:
