@@ -11,7 +11,7 @@ sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas'
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 
-sep = mf.separator_csv_or_tsv(sys.argv[1])
+sep = mf.determine_separator(sys.argv[1])
 df = pd.read_csv(sys.argv[1], sep=sep, header=0)
 
 mf.print_columns_with_index(df)

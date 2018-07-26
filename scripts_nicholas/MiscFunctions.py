@@ -44,14 +44,16 @@ def print_columns_with_index(dataframe):
 	for index in range(len(dataframe.columns)):
 		print( '(' + str((index + 1)) + ') ' + dataframe.columns[index] )
 
-## Returns string '\t' if the filename ends in .tsv or ',' if the filename ends in .csv
+## Returns the appropriate separator for several file formats.
 #       @param filename : The file to assess.
 #		@return sep     : The separator associated with the filetype of named file.
-def separator_csv_or_tsv(filename):
+def determine_separator(filename):
 	sep = ''
 	if ( re.search('(?<=.)csv', filename) ):
 		sep = ','
 	elif ( re.search('(?<=.)tsv', filename) ):
+		sep = '\t'
+	elif ( re.search('(?<=.)vep.txt', filename) ):
 		sep = '\t'
 	return sep
 	
