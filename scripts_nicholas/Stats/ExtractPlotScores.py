@@ -1,5 +1,9 @@
-# The goal is to create a formatted csv file that contains each variant that reports a score with
-# its corresponding classification (according to ENIGMA/ClinVar/etc.).
+################################################################################################
+# Script that exctracts the REVEL scores from a VEP formatted file and its classified
+# pathogenicity and plots the scores partitioned by pathogenicity as a boxplot.
+# Call the script as:
+# python RemoveExtraGenes.py <classification file> <score file> <output file>
+################################################################################################
 
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
@@ -55,13 +59,15 @@ for index, row in score_dataframe.iterrows(): # Iterates through each variant in
 			revel_scores['scores'].append(float(after))
 			genomic_coordinate = chromosome_list[-1]
 			pathogenicity = pathogenicity_dataframe[pathogenicity_dataframe[genomic_coordinate_column1] == genomic_coordinate][pathogenicity_column]
-
 			if ( (pathogenicity.values[0] == 'Benign') | (pathogenicity.values[0] == 'Likely_benign') ):
 				revel_scores['pathogenicity'].append("Benign")
 			elif ( (pathogenicity.values[0] == 'Pathogenic') | (pathogenicity.values[0] == 'Likely_pathogenic') ):
 				revel_scores['pathogenicity'].append('Pathogenic')
 
 # Construct a dataframe from the dictionary, and then we create a boxplot from the data.
+print(revel_scores)
+print(len(revel_scores['pathogenicity']))
+print(len(revel_scores['scores']))
 df = pd.DataFrame.from_dict(revel_scores)
 df.to_csv(sys.argv[3])
 print('variants scored:', df.shape[0], '/', pathogenicity_dataframe.shape[0])
