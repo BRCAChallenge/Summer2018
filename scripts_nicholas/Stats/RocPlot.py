@@ -9,7 +9,7 @@ import sys # For command-line arguments
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
-sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas')
+sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 # Determines the separator type associated with the file format of the data file.

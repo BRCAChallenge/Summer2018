@@ -4,8 +4,8 @@
 ################################################################################################
 
 #-----------------------------------------------------------------------------------------------
-import pandas as pd
-import re
+import pandas as pd # For dataframes
+import re # To process regex.
 #-----------------------------------------------------------------------------------------------
 
 ## Asks the user for an answer, repeats asking until the user provides an integer type answer.
@@ -29,13 +29,6 @@ def get_yes_no(phrase):
 	while ( not ((answer == 'y') | (answer == 'Y') | (answer == 'n') | (answer == 'N')) ):
 		answer = input(phrase)
 	return answer
-
-
-"""
-def header_size(filename):
-	count = 0
-	for chunk in pd.read_csv(filename, chunksize=10):
-"""
 
 ## Prints each column of a dataframe with its corresponding index (indexed like a matrix).
 #       @param _dataframe : The dataframe to print contents from.

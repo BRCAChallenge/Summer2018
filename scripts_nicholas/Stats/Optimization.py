@@ -1,7 +1,8 @@
 ################################################################################################
-# Script that plots the accuracy of a predictor by the threshold.
+# Script that plots the accuracy of a predictor by the threshold. The data file should be a csv
+# or tsv
 # Call the script as:
-# python RocPlot.py <data file>
+# python Optimization.py <data file>
 ################################################################################################
 
 #------------------------------------------------------------------------------------------------
@@ -9,7 +10,7 @@ import sys # For command-line arguments
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
-sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas')
+sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 # Determines the separator type associated with the file format of the data file.
@@ -42,6 +43,9 @@ for threshold in thresholds:
 	accuracy = (true_positives + true_negatives)/total
 	x.append(threshold)
 	y.append(accuracy)
+
+print('Max : ' + str(max(y)) + '\nAt  : ', end='')
+print(*[x[index] for index, value in enumerate(y) if value == max(y)], sep=', ')
 
 #------------------------------------------------------------------------------------------------
 # Creates an empty figure, with total area of 1.

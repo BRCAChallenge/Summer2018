@@ -9,7 +9,7 @@
 import sys # For command-line arguments
 import pandas as pd
 import matplotlib.pyplot as plt
-sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas')
+sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 # Determines the separators for both files.

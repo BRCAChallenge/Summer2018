@@ -8,7 +8,7 @@
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
 import pandas as pd
-sys.path.append('/Users/nicholaslenz/Desktop/Summer2018 (Repo)/scripts_nicholas')
+sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
 sep = mf.determine_separator(sys.argv[1])
