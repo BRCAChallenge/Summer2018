@@ -20,6 +20,10 @@ Hi Im Louis Im a Computer Science undergraduate student. Im interested in the be
 ## During this summer we'll be working in the use and understand of protein structure to identify pathogenicity. I will be using VEST a program that analyses gene variation and FoldX for observing variants in protein structure. Our goal is to find out if the use of observing protein structure, adds values to just using the genes as predictors for pathogenicity. As normal (gold standard) we will be using data analysed by ENIGMA. 
 
 ###
+### Week 2 (July 2-6)
+- Get Cravant (VEST) Working 
+- Wrote abstract and personal statement to apply to SACNAS for presentation
+
 ### Week 1 (June 25-29):
 - Learn about genetic variation, and pathogenic and benign variants
 - Read sugested paper
