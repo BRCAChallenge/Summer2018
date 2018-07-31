@@ -63,7 +63,7 @@ df = pd.read_csv("first_versions_of_variants_in_enigma_barring_first_release_amm
 #generalize input
 #i=sys.argv[1]
 #o=sys.argv[2]
-# df=pd.read_csv()
+# df=pd.read_csv(str(i))
 
 #FILTERS FOR Realese date 7 or older & being from enigma & the lenght of the cordinate strings be 20(meaning its a single nuc. sub)
 df=filter(df)
