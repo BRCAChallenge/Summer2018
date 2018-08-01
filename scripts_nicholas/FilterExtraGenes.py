@@ -26,4 +26,6 @@ def FilterExtraGenes(file):
 	fileWrite.close()
 
 ################################ Main ################################
+
+# arg1 : The file to filter the extra genes from. It can be any flat file.
 FilterExtraGenes(sys.argv[1])

@@ -5,7 +5,7 @@
 
 #------------------------------------------------------------------------------------------------
 import sys # For command-line arguments
-import pandas as pd
+import pandas as pd # For dataframes
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ import MiscFunctions as mf
 #                      contain pathogenicity classification, as a number between 1 and 5.
 #  @param write_file : The file to write data to. The file should be a csv file, as the output
 #                      is comma-delimited.
-def ExtractTestData(read_file, write_file='~/Desktop/out.csv'):
+def ExtractTestData(read_file, write_file):
 
 	# Creates a dataframe from read_file and opens a new file for writing.
 	df = pd.read_csv(read_file, sep='\t', header=0)
@@ -54,7 +54,7 @@ def ExtractTestData(read_file, write_file='~/Desktop/out.csv'):
 ################################ Main ################################
 
 # arg1 : File with format like 'variants.to.include.in.test.set.txt' (see Synapse)
-# arg2 : File to write to, a csv file. Default path: ~/Desktop/out.csv
+# arg2 : File to write to, a csv file.
 ExtractTestData(sys.argv[1], sys.argv[2])
 
 

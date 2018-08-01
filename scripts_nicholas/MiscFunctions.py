@@ -5,7 +5,7 @@
 
 #-----------------------------------------------------------------------------------------------
 import pandas as pd # For dataframes
-import re # To process regex.
+import re # To process regex
 #-----------------------------------------------------------------------------------------------
 
 ## Asks the user for an answer, repeats asking until the user provides an integer type answer.
