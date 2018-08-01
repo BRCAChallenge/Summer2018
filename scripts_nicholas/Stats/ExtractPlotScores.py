@@ -25,7 +25,8 @@ score_dataframe = pd.read_csv(sys.argv[2], sep=sep2, header=0)
 mf.print_columns_with_index(pathogenicity_dataframe)
 pathogenicity_index  = mf.get_int_answer('What column states the pathogenicity? ')
 pathogenicity_column = list(pathogenicity_dataframe.columns)[pathogenicity_index - 1]
-genomic_coordinate_column1 = list(pathogenicity_dataframe.columns)[0]
+coordinate_index_1  = mf.get_int_answer('What column identifies the variant? ')
+genomic_coordinate_column1 = list(pathogenicity_dataframe.columns)[coordinate_index_1 - 1]
 
 # Inquires about which column in the output file of the predictor method contains pathogenicity
 # scores. Sets the variant identifier to the first column, which must match a value in the first
@@ -33,7 +34,8 @@ genomic_coordinate_column1 = list(pathogenicity_dataframe.columns)[0]
 mf.print_columns_with_index(score_dataframe)
 score_index = mf.get_int_answer('What column gives the scores? ')
 score_column = list(score_dataframe.columns)[score_index - 1]
-genomic_coordinate_column2 = list(score_dataframe.columns)[0]
+coordinate_index_2  = mf.get_int_answer('What column identifies the variant? ')
+genomic_coordinate_column2 = list(score_dataframe.columns)[coordinate_index_2 - 1]
 
 # Creates a dictionary to store each variant's pathogenicity and pathogenicity score. Creates
 # a list that stores each variant identifier associated with a reported score.
@@ -59,6 +61,7 @@ for index, row in score_dataframe.iterrows(): # Iterates through each variant in
 			revel_scores['scores'].append(float(after))
 			genomic_coordinate = chromosome_list[-1]
 			pathogenicity = pathogenicity_dataframe[pathogenicity_dataframe[genomic_coordinate_column1] == genomic_coordinate][pathogenicity_column]
+			print(pathogenicity.values)
 			if ( (pathogenicity.values[0] == 'Benign') | (pathogenicity.values[0] == 'Likely_benign') ):
 				revel_scores['pathogenicity'].append("Benign")
 			elif ( (pathogenicity.values[0] == 'Pathogenic') | (pathogenicity.values[0] == 'Likely_pathogenic') ):

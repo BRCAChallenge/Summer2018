@@ -16,7 +16,7 @@ import random
 import time
 #------------------------------------------------------------------------------------------------
 
-random.seed(time.time())
+random.seed(int(time.time()/30))
 
 sep1 = mf.determine_separator(sys.argv[1])
 sep2 = mf.determine_separator(sys.argv[2])
@@ -64,5 +64,5 @@ else:
 	
 	df_out_2 = df2[[df2_variant_column, df2_column_name]].append(df1_to_move, ignore_index=True)
 	df_out_1 = df1_pathogenic.append(df1_benign.iloc[everything_else])
-	df_out_1.to_csv(sys.argv[3])
-	df_out_2.to_csv(sys.argv[4])
+	df_out_1.to_csv(sys.argv[3], index=False)
+	df_out_2.to_csv(sys.argv[4], index=False)

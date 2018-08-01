@@ -18,7 +18,7 @@ import MiscFunctions as mf
 #                      contain pathogenicity classification.
 #  @param write_file : The file to write data to. The file should be a tsv file, as the output
 #                      is tab-delimited.
-def DataExtraction(read_file, write_file):
+def DataExtraction(read_file, write_file='~/Desktop/out.tsv'):
 	# Creates a dataframe from read_file and opens a new file for writing.
 	sep = mf.determine_separator(read_file)
 	df = pd.read_csv(read_file, sep=sep, header=0)
@@ -37,7 +37,7 @@ def DataExtraction(read_file, write_file):
 
 	# Writes the variant identifier and the pathogencity to output_file.
 	for index, row in df.iterrows():
-		write_file.write(df[coordinate_column].iloc[index] + '\t')
+		write_file.write(df[coordinate_column].iloc[index] + ',')
 		if ( (first_question == 'y') | (first_question == "Y") ):
 			write_file.write(df[pathogenicity_column].iloc[index])
 		write_file.write('\n')
@@ -45,6 +45,9 @@ def DataExtraction(read_file, write_file):
 	write_file.close()
 
 ################################ Main ################################
+
+# arg1 : path to csv-like file to extract variant identifier (and pathogenicity) from.
+# arg2 : file to write write to, a tsv file. Default path: ~/Desktop/out.tsv
 DataExtraction(sys.argv[1], sys.argv[2])
 
 
