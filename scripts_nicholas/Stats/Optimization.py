@@ -14,6 +14,7 @@ import MiscFunctions as mf
 
 ## Script that plots a predictor's accuracy as a function of its scoring threshold.
 #  @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
+#
 def Optimization(data_file):
 	# Creates a dataframe from data_file.
 	sep = mf.determine_separator(sys.argv[1])

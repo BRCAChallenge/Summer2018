@@ -17,6 +17,7 @@ import MiscFunctions as mf
 #                               pathogenicity for each variant.
 #  @param score_file          : A csv-like file that contains both a variant identifier and a
 #                               score for each variant.
+#
 def ExtractPlotScores(classification_file, score_file):
 	# Determines the separators for both files.
 	sep1 = mf.determine_separator(classification_file)

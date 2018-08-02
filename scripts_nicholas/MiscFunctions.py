@@ -9,8 +9,8 @@ import re # To process regex
 #-----------------------------------------------------------------------------------------------
 
 ## Asks the user for an answer, repeats asking until the user provides an integer type answer.
-#       @param phrase  : The phrase to ask.
-#		@return answer : The user's valid answer.
+#  @param phrase  : The phrase to ask.
+#  @return answer : The user's valid answer.
 #
 def get_int_answer(phrase):
 	answer = ''

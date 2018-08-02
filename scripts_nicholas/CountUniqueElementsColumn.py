@@ -14,6 +14,7 @@ import MiscFunctions as mf
 #      every unique element in the column and the count of each item, if asked.
 #  @param file : The file as input to the script. The file should be tab dilimited and have no
 #                header. The first line of the file should be the title of each column.
+#
 def CountUniqueElementsColumn(read_file):
 	# Creates a csv file from read_file.
 	sep = mf.determine_separator(read_file)

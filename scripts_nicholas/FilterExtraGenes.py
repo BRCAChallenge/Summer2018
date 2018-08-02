@@ -10,6 +10,7 @@ import sys # For command-line arguments
 ## Removes all variants from a flat file that do not refer to the genes BRCA1 and BRCA2.
 #  @param file : The file as input to the script. The file can be any basic flat file, but each
 #                variant must reference the gene it is contained in.
+#
 def FilterExtraGenes(file):
 	# Reads the lines of a flat file (this should be changed to load in chunks).
 	fileRead = open(sys.argv[1], "r")

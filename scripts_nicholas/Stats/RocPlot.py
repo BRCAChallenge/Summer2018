@@ -16,6 +16,7 @@ import MiscFunctions as mf
 ## Script that plots a predictor's true positive rate and false positive rate parameterized by
 #      the scoring threshold.
 #  @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
+#
 def RocPlot(data_file):
 	# Determines the separator type associated with the file format of the data file.
 	sep = mf.determine_separator(data_file)

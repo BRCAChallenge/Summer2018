@@ -10,6 +10,7 @@ import sys # For command-line arguments
 ## Removes the variants from a flat file that don't have canonical IDs. This only works with
 #      variants that are identified in HGVS notation.
 #  @param file : The flat file to remove variants with non-canonocal HGVS identifications.
+#
 def RemoveExtraGenes(file):
 
 	# Creates a list containing each line (A lot of RAM!)

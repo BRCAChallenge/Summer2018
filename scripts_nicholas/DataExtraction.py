@@ -18,6 +18,7 @@ import MiscFunctions as mf
 #                      contain pathogenicity classification.
 #  @param write_file : The file to write data to. The file should be a tsv file, as the output
 #                      is tab-delimited.
+#
 def DataExtraction(read_file, write_file):
 	# Creates a dataframe from read_file and opens a new file for writing.
 	sep = mf.determine_separator(read_file)
