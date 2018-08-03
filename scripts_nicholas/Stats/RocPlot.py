@@ -23,7 +23,7 @@ def RocPlot(data_file):
 
 	# Creates a partition of the interval [0,1]. Creates two empty lists; one will store the true
 	# positive rate and the other will store the false positive rates.
-	thresholds = [float(i)/100 for i in range(101)]
+	thresholds = [float(i)/1000 for i in range(1001)]
 	x = []
 	y = []
 
@@ -41,10 +41,10 @@ def RocPlot(data_file):
 		true_positives  = 0
 		false_positives = 0
 		for index, row in df.iterrows():
-			score = float(row.values[2])
-			if ( (score >= threshold) & (row.values[1] == positive_term) ):
+			score = float(row.values[3])
+			if ( (score >= threshold) & (row.values[2] == positive_term) ):
 				true_positives += 1
-			elif ( (score >= threshold) & (row.values[1] == negative_term) ):
+			elif ( (score >= threshold) & (row.values[2] == negative_term) ):
 				false_positives += 1
 
 		true_positive_rate = true_positives/positives

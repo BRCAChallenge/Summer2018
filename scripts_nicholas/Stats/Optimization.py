@@ -8,6 +8,7 @@ import sys # For command-line arguments
 import pandas as pd # For dataframes
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
+import statistics as stat
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ def Optimization(data_file):
 
 	# Creates a partition of the interval [0,1]. Creates two empty lists; one will store the accuracy
 	# and the other will store the threshold.
-	thresholds = [float(i)/100 for i in range(101)]
+	thresholds = [float(i)/1000 for i in range(1001)]
 	x = []
 	y = []
 
@@ -36,17 +37,20 @@ def Optimization(data_file):
 		true_positives  = 0
 		true_negatives = 0
 		for index, row in df.iterrows():
-			score = float(row.values[2])
-			if ( (score >= threshold) & (row.values[1] == positive_term) ):
+			score = float(row.values[3])
+			if ( (score >= threshold) & (row.values[2] == positive_term) ):
 				true_positives += 1
-			elif ( (score < threshold) & (row.values[1] == negative_term) ):
+			elif ( (score < threshold) & (row.values[2] == negative_term) ):
 				true_negatives += 1
 		accuracy = (true_positives + true_negatives)/total
 		x.append(threshold)
 		y.append(accuracy)
 
-	print('Max : ' + str(max(y)) + '\nAt  : ', end='')
-	print(*[x[index] for index, value in enumerate(y) if value == max(y)], sep=', ')
+	# Prints the threshold(s) that optimizes the accuracy and computes their average.
+	max_values = [x[index] for index, value in enumerate(y) if value == max(y)]
+	print('Max    : ' + str(max(y)))
+	print('Mean   : ' + str(stat.mean(max_values)))
+	print('Median : ' + str(stat.median(max_values)))
 
 	#------------------------------------------------------------------------------------------------
 	# Creates an empty figure, with total area of 1.
@@ -72,10 +76,10 @@ def Optimization(data_file):
 
 """
 # arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
-# its score. The appropriate file format is:
-,pathogenicity,scores
-0,Benign,0.284
-1,Pathogenic,0.19
+# its score. The appropriate file format is, for example:
+,variant,pathogenicity,score
+0,NM_000059.3:c.506A>G,Benign,0.145
+1,NM_000059.3:c.547+1G>T,Pathogenic,0.283
 ...
 
 """

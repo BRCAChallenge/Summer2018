@@ -46,7 +46,7 @@ def ExtractPlotScores(classification_file, score_file):
 
 	# Creates a dictionary to store each variant's pathogenicity and pathogenicity score. Creates
 	# a list that stores each variant identifier associated with a reported score.
-	scores = {'pathogenicity': [], 'scores': []}
+	scores = {'variant': [], 'pathogenicity': [], 'score': []}
 	chromosome_list = []
 
 	for index, row in score_dataframe.iterrows(): # Iterates through each variant in the output file.
@@ -62,21 +62,25 @@ def ExtractPlotScores(classification_file, score_file):
 				# Add the variant to the list of scored variants. Then append the score to the list
 				# of scores and append the variants pathogenicity to the list of pathogencities.
 				chromosome_list.append(score_dataframe[genomic_coordinate_column2].iloc[index])
-				scores['scores'].append(float(after))
+				scores['score'].append(float(after))
 				genomic_coordinate = chromosome_list[-1]
+				scores['variant'].append(genomic_coordinate)
 				pathogenicity = pathogenicity_dataframe[pathogenicity_dataframe[genomic_coordinate_column1] == genomic_coordinate][pathogenicity_column]
 				if ( (pathogenicity.values[0] == 'Benign') | (pathogenicity.values[0] == 'Likely_benign') ):
 					scores['pathogenicity'].append("Benign")
 				elif ( (pathogenicity.values[0] == 'Pathogenic') | (pathogenicity.values[0] == 'Likely_pathogenic') ):
 					scores['pathogenicity'].append('Pathogenic')
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#                   This section is inefficient so needs to be revised.
+
 
 	# Construct a dataframe from the dictionary, and then we create a boxplot from the data.
 	df = pd.DataFrame.from_dict(scores)
 	if ( len(sys.argv) == 4 ):
-		df.to_csv(output_file)
+		df.to_csv(sys.argv[3])
 	print('variants scored:', df.shape[0], '/', pathogenicity_dataframe.shape[0])
 	#  , '/', len((pathogenicity_dataframe.shape())[1])
-	boxplt = df.boxplot(by='pathogenicity')
+	boxplt = df[['pathogenicity', 'score']].boxplot(by='pathogenicity')
 	plt.show()
 
 ################################ Main ################################
