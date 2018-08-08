@@ -20,14 +20,28 @@ import MiscFunctions as mf
 def RocPlot(data_file):
 	# Determines the separator type associated with the file format of the data file.
 	sep = mf.determine_separator(data_file)
+	df = pd.read_csv(sys.argv[1], sep=sep)
+
+	scores = (df['score'].values).copy()
+	scores.sort()
+	print(scores)
+	
+	# Sets the resolution for the plot
+	granularity = 1
+	for index in range(len(scores)-1):
+		difference = scores[index + 1] - scores[index]
+		if( difference < granularity ):
+			granularity = difference
+	if ( granularity < .001 ):
+		granularity = .001
 
 	# Creates a partition of the interval [0,1]. Creates two empty lists; one will store the true
 	# positive rate and the other will store the false positive rates.
-	thresholds = [float(i)/1000 for i in range(1001)]
+	thresholds = [float(i)*granularity for i in range( int(1/granularity) + 1 )]
 	x = []
 	y = []
 
-	df = pd.read_csv(sys.argv[1], sep=',')
+
 
 	# Determines what term will be considered positive and which will be negative.
 	positive_term = 'Pathogenic'

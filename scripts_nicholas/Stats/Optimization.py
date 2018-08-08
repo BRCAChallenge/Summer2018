@@ -20,10 +20,22 @@ def Optimization(data_file):
 	# Creates a dataframe from data_file.
 	sep = mf.determine_separator(sys.argv[1])
 	df = pd.read_csv(sys.argv[1], sep=',')
+	
+	scores = (df['score'].values).copy()
+	scores.sort()
+	
+	# Sets the resolution for the plot
+	granularity = 1
+	for index in range(len(scores)-1):
+		difference = scores[index + 1] - scores[index]
+		if( difference < granularity ):
+			granularity = difference
+	if ( granularity < .001 ):
+		granularity = .001
 
 	# Creates a partition of the interval [0,1]. Creates two empty lists; one will store the accuracy
 	# and the other will store the threshold.
-	thresholds = [float(i)/1000 for i in range(1001)]
+	thresholds = [float(i)*granularity for i in range( int(1/granularity) + 1 )]
 	x = []
 	y = []
 
@@ -48,9 +60,10 @@ def Optimization(data_file):
 
 	# Prints the threshold(s) that optimizes the accuracy and computes their average.
 	max_values = [x[index] for index, value in enumerate(y) if value == max(y)]
-	print('Max    : ' + str(max(y)))
-	print('Mean   : ' + str(stat.mean(max_values)))
-	print('Median : ' + str(stat.median(max_values)))
+	print('Resolution : ' + str(granularity))
+	print('Max        : ' + str(max(y)))
+	print('Mean       : ' + str(stat.mean(max_values)))
+	print('Median     : ' + str(stat.median(max_values)))
 
 	#------------------------------------------------------------------------------------------------
 	# Creates an empty figure, with total area of 1.

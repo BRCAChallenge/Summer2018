@@ -48,5 +48,7 @@ def determine_separator(filename):
 		sep = '\t'
 	elif ( re.search('(?<=.)vep.txt', filename) ):
 		sep = '\t'
+	elif ( re.search('(?<=.)vcf', filename) ):
+		sep = '\t'
 	return sep
 	

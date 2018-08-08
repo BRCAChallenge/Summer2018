@@ -30,19 +30,19 @@ def ExtractPlotScores(classification_file, score_file):
 	# Inquires about which column in the curated file contains pathogenicity data. Sets the variant
 	# identifier to the first column.
 	mf.print_columns_with_index(pathogenicity_dataframe)
-	pathogenicity_index  = mf.get_int_answer('What column states the pathogenicity? ')
-	pathogenicity_column = list(pathogenicity_dataframe.columns)[pathogenicity_index - 1]
 	coordinate_index_1  = mf.get_int_answer('What column identifies the variant? ')
 	genomic_coordinate_column1 = list(pathogenicity_dataframe.columns)[coordinate_index_1 - 1]
+	pathogenicity_index  = mf.get_int_answer('What column states the pathogenicity? ')
+	pathogenicity_column = list(pathogenicity_dataframe.columns)[pathogenicity_index - 1]
 
 	# Inquires about which column in the output file of the predictor method contains pathogenicity
 	# scores. Sets the variant identifier to the first column, which must match a value in the first
 	# column of the curated file.
 	mf.print_columns_with_index(score_dataframe)
-	score_index = mf.get_int_answer('What column gives the scores? ')
-	score_column = list(score_dataframe.columns)[score_index - 1]
 	coordinate_index_2  = mf.get_int_answer('What column identifies the variant? ')
 	genomic_coordinate_column2 = list(score_dataframe.columns)[coordinate_index_2 - 1]
+	score_index = mf.get_int_answer('What column gives the scores? ')
+	score_column = list(score_dataframe.columns)[score_index - 1]
 
 	# Creates a dictionary to store each variant's pathogenicity and pathogenicity score. Creates
 	# a list that stores each variant identifier associated with a reported score.
