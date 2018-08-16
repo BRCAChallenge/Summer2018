@@ -10,12 +10,13 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import statistics as stat
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 #------------------------------------------------------------------------------------------------
 
-## Script that plots a predictor's accuracy as a function of its scoring threshold.
-#  @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
-#
+"""
+Script that plots a predictor's accuracy as a function of its scoring threshold.
+    @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
+"""
 def Optimization(data_file):
 	# Creates a dataframe from data_file.
 	sep = mf.determine_separator(sys.argv[1])
@@ -92,8 +93,9 @@ def Optimization(data_file):
 ################################ Main ################################
 
 """
-# arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
-# its score. The appropriate file format is, for example:
+arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
+       its score. The appropriate file format is, for example:
+
 ,variant,pathogenicity,score
 0,NM_000059.3:c.506A>G,Benign,0.145
 1,NM_000059.3:c.547+1G>T,Pathogenic,0.283

@@ -11,13 +11,14 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from sklearn.metrics import roc_auc_score
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 #------------------------------------------------------------------------------------------------
 
-## Script that plots a predictor's true positive rate and false positive rate parameterized by
-#      the scoring threshold.
-#  @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
-#
+"""
+Script that plots a predictor's true positive rate and false positive rate parameterized by
+    the scoring threshold.
+    @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
+"""
 def RocPlot(data_file):
 	# Determines the separator type associated with the file format of the data file.
 	sep = mf.determine_separator(data_file)
@@ -97,8 +98,9 @@ def RocPlot(data_file):
 ################################ Main ################################
 
 """
-# arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
-# its score. The appropriate file format is:
+arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
+       its score. The appropriate file format is:
+       
 ,pathogenicity,scores
 0,Benign,0.284
 1,Pathogenic,0.19

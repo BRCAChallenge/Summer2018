@@ -7,18 +7,19 @@
 import sys # For command-line arguments
 import pandas as pd # For dataframes
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 import random # For pseudo-random numbers
 import time # To set the seed
 #------------------------------------------------------------------------------------------------
 
-## Move a specified number of pathogenic or benign variants from a csv file to another file.
-#      this doesn't modify the original files, rather creates new ones with new data.
-#  @param take_from          : The csv-like file to remove variants from.
-#  @param add_to             : The csv-like file to add variants to.
-#  @param modified_take_from : The modified version of take_from
-#  @param modified_add_to    : The modified version of add_to
-#
+"""
+Move a specified number of pathogenic or benign variants from a csv file to another file.
+    this doesn't modify the original files, rather creates new ones with new data.
+    @param take_from          : The csv-like file to remove variants from.
+    @param add_to             : The csv-like file to add variants to.
+    @param modified_take_from : The modified version of take_from
+    @param modified_add_to    : The modified version of add_to
+"""
 def MoveVariants(take_from, add_to, modified_take_from, modified_add_to):
 	# Create dataframes from take_from and add_to. I will refer to the dataframes by their
 	# respective filenames.
@@ -64,7 +65,7 @@ def MoveVariants(take_from, add_to, modified_take_from, modified_add_to):
 		df_out_1.to_csv(modified_take_from, index=False)
 		df_out_2.to_csv(modified_add_to, index=False)
 	else: # If the user wants to move benign variants.
-		# Randomly selects number_to_move benign variants from take_from's pathogenic half.
+		# Randomly selects number_to_move benign variants from take_from's benign half.
 		number_of_variants = df1_benign.shape[0]
 		indices = random.sample(range(number_of_variants), number_to_move)
 		everything_else = [i for i in range(number_of_variants) if i not in indices]

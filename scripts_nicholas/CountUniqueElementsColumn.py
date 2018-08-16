@@ -7,14 +7,15 @@
 import sys # For command-line arguments
 import pandas as pd # For dataframes
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 #------------------------------------------------------------------------------------------------
 
-## Counts the number of unique items in a specified column of the file. Additionally, displays
-#      every unique element in the column and the count of each item, if asked.
-#  @param file : The file as input to the script. The file should be tab dilimited and have no
-#                header. The first line of the file should be the title of each column.
-#
+"""
+Counts the number of unique items in a specified column of the file. Additionally, displays
+    every unique element in the column and the count of each item, if asked.
+    @param file : The file as input to the script. The file should be csv-like and have no
+                  header. The first line of the file should be the title of each column.
+"""
 def CountUniqueElementsColumn(read_file):
 	# Creates a csv file from read_file.
 	sep = mf.determine_separator(read_file)
