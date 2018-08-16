@@ -9,6 +9,7 @@ import sys # For command-line arguments
 import pandas as pd # For dataframes
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
+from sklearn.metrics import roc_auc_score
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
 import MiscFunctions as mf
 #------------------------------------------------------------------------------------------------
@@ -22,9 +23,10 @@ def RocPlot(data_file):
 	sep = mf.determine_separator(data_file)
 	df = pd.read_csv(sys.argv[1], sep=sep)
 
-	scores = (df['score'].values).copy()
+	scores = (df['Score'].values).copy()
+	binary_classifications = df['Pathogenicity'].replace({'Pathogenic': 1,'Benign': 0})
+	AUC = roc_auc_score(list(binary_classifications.values), scores)
 	scores.sort()
-	print(scores)
 	
 	# Sets the resolution for the plot
 	granularity = 1
@@ -46,8 +48,8 @@ def RocPlot(data_file):
 	# Determines what term will be considered positive and which will be negative.
 	positive_term = 'Pathogenic'
 	negative_term = 'Benign'
-	positives = df[df['pathogenicity'] == positive_term].shape[0]
-	negatives = df[df['pathogenicity'] == negative_term].shape[0]
+	positives = df[df['Pathogenicity'] == positive_term].shape[0]
+	negatives = df[df['Pathogenicity'] == negative_term].shape[0]
 
 	# For each threshold in the partition, determines the true positive rate and the true negative
 	# rate for the data.
@@ -55,10 +57,10 @@ def RocPlot(data_file):
 		true_positives  = 0
 		false_positives = 0
 		for index, row in df.iterrows():
-			score = float(row.values[3])
-			if ( (score >= threshold) & (row.values[2] == positive_term) ):
+			score = float(row.values[2])
+			if ( (score >= threshold) & (row.values[1] == positive_term) ):
 				true_positives += 1
-			elif ( (score >= threshold) & (row.values[2] == negative_term) ):
+			elif ( (score >= threshold) & (row.values[1] == negative_term) ):
 				false_positives += 1
 
 		true_positive_rate = true_positives/positives
@@ -66,6 +68,8 @@ def RocPlot(data_file):
 
 		x.append(false_positive_rate)
 		y.append(true_positive_rate)
+
+
 
 	#------------------------------------------------------------------------------------------------
 	# Creates an empty figure, with total area of 1.
@@ -86,6 +90,8 @@ def RocPlot(data_file):
 	ax.grid(linestyle=':', linewidth=0.5, color='black')
 	ax.plot(x, y, color='blue', linewidth='3.0')
 	ax.plot([0,1], [0,1], color='orange', linestyle='--')
+	plt.title('ROC Plot of REVEL on Test Set')
+	ax.legend(['AUC: ' + str(round(AUC, 3))], loc=4)
 	plt.show()
 
 ################################ Main ################################

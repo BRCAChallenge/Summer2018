@@ -21,7 +21,7 @@ def Optimization(data_file):
 	sep = mf.determine_separator(sys.argv[1])
 	df = pd.read_csv(sys.argv[1], sep=',')
 	
-	scores = (df['score'].values).copy()
+	scores = (df['Score'].values).copy()
 	scores.sort()
 	
 	# Sets the resolution for the plot
@@ -42,17 +42,18 @@ def Optimization(data_file):
 	# Determines what term will be considered positive and which will be negative.
 	positive_term = 'Pathogenic'
 	negative_term = 'Benign'
-	total = df['pathogenicity'].shape[0]
+	total = df['Pathogenicity'].shape[0]
+	print(total)
 
 	# For each threshold in the partition, determines the accuracy of the predictor.
 	for threshold in thresholds:
 		true_positives  = 0
 		true_negatives = 0
 		for index, row in df.iterrows():
-			score = float(row.values[3])
-			if ( (score >= threshold) & (row.values[2] == positive_term) ):
+			score = float(row.values[2])
+			if ( (score >= threshold) & (row.values[1] == positive_term) ):
 				true_positives += 1
-			elif ( (score < threshold) & (row.values[2] == negative_term) ):
+			elif ( (score < threshold) & (row.values[1] == negative_term) ):
 				true_negatives += 1
 		accuracy = (true_positives + true_negatives)/total
 		x.append(threshold)
@@ -82,7 +83,10 @@ def Optimization(data_file):
 
 	# Draws the grid and plots the response curve.
 	ax.grid(linestyle=':', linewidth=0.5, color='black')
-	ax.plot(x, y, color='blue', linewidth='3.0')
+	ax.plot(x, y, color='blue', linewidth='2.0')
+	ax.plot([stat.median(max_values),stat.median(max_values)], [0,max(y)], color='red', linestyle='--',)
+
+	plt.title('Accuracy of EA on Training Set as a Function of Threshold')
 	plt.show()
 
 ################################ Main ################################

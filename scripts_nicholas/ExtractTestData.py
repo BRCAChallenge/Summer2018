@@ -38,7 +38,8 @@ def ExtractTestData(read_file, write_file):
 	# adds the pathogenicity of the variant if the user replied yes.
 	for index, row in df.iterrows():
 		if ( ('>' in row.values[1]) & (not int(row.values[-1]) == 3)):
-			if ( row.values[1] == 'BRCA1' ):
+			print(row.values[0])
+			if ( row.values[0] == 'BRCA1' ):
 				write_file.write('NM_007294.3:' + str(row.values[1]))
 			else:
 				write_file.write('NM_000059.3:' + str(row.values[1]))

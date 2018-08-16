@@ -19,7 +19,10 @@ def removeExtraColumns(file):
 		if( count > 0 ):
 			headings = line.split('\t')
 			ending = headings[2][-14:-3] + ':' + headings[2][-3:] + '\n'
-			fileWrite.write('chr13' + ending)
+			if( headings[0][0:11] == 'NM_000059.3'):
+				fileWrite.write('chr13' + ending)
+			else:
+				fileWrite.write('chr17' + ending)
 		else:
 			headings = line.split('\t')
 			fileWrite.write(headings[0] + '\t' + headings[1] + '\t' + headings[2] + '\n')
