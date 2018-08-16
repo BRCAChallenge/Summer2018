@@ -4,6 +4,6 @@
 * Training-Test - Scripts in this directory perform very specific functions in the pipeline and notes.txt includes a more detailed description of each script.
 * EA - Contains one script that extracts Evolutionary Action data specifically.
 * REVEL - Contains one script that extracts REVEL data specifically.
-* Stats - Scripts generate various plots showing trends in the data outputted by EA and REVEL.
+* Stats - Scripts to generate various plots showing trends in the data outputted by EA and REVEL.
 
-## **See notes.txt for a step by step of the pipeline**
+## [See notes.txt](https://github.com/nicholaslenz12/Summer2018/blob/master/scripts_nicholas/notes.txt) **for a step by step of the pipeline**
