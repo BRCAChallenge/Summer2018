@@ -1,0 +1,51 @@
+The pipeline is separated into two phases:
+
+1. Create both the training and the test sets.
+2. Process the both sets using REVEL and EA and extract data.
+
+Each phase is further broken down into sub sections:
+
+1. Create both the training and the test sets.
+Data for datasets came from two sources, ClinVar and ENIGMA. The ClinVar data
+came from the latest release of BRCA Exchange (which at the time was v.20).
+Data from ENIGMA came from a CAGI challenge (July 2018).
+    A. The ClinVar data was filtered to contain SNVs that results in an amino acid change.
+    The data was put into a csv file that contained each variant's genomic coordinate ID
+    and classification, call it clinvar.csv
+    B. ENIGMA data was extracted from the file "variants.to.include.in.test.set.txt"
+    using the script ExtractEnigmaData.py. The script writes a new csv file with each
+    variant's HGVSp ID and classification, call it engima_cagi.csv.
+    C. DataExtraction.py is run on both files to obtain only the IDs for the variants.
+    Call the new files clinvar_gen_coordinates.txt and engima_cagi_hgvs_c.txt.
+    D. Then, I went to Mutalyzer and ran a batch job on engima_cagi_hgvs_c.txt to obtain
+    the HGVSg notations for the variants.
+    E. The output of the batch job was used as input for the script
+    RemoveExtraColumns.py. The end result is a file containing the genomic coordinate IDs
+    for the ENIGMA dataset. Call it engima_cagi_gen_coordinates.txt
+    F. Mutalyzer preserves the order of the input variants, so the contents of
+    engima_cagi_gen_coordinates.txt were copied into engima_cagi.csv, to replace the
+    HGVSc notations.
+    G. The script MoveVariant.py was called with clinvar.csv and engima_cagi.csv as input
+    to produce two new csv files that should had the same ratio of pathogenic-benign
+    variants and one had twice the number of variants as the other. For me this involved
+    moving 209 bening variants from engima_cagi.csv to clinvar.csv. The new files were 
+    named test_set.csv and training_set.csv.
+    H. DataExtraction.py was run on both datasets, which produced
+    test_set_gen_coordinates.txt and training_set_gen_coordinates.txt
+    I. GenCoordsToVCF.py was run on both test_set_gen_coordinates.txt and
+    training_set_gen_coordinates.txt producing to vcf files: test_set.vcf and
+    training_set.vcf.
+2. Process the both sets using REVEL and EA and extract data.
+    A. Both vcf files were run in Ensembl's web tool to obtain new vcf files that
+    contained a new field that displayed the REVEL score for missense variants. Ensembl
+    also produced to vep.txt files, with a more manageable format than the vcf files.
+    B. Both vcf files were run by EA to produce scores for missense variants. Files were
+    returned in a vcf format.
+    C. ExtractEA.py was run on both vcf files produced by EA. The new files were called
+    ea_test_scores.csv and ea_training_scores.csv.
+    D. ExtractREVEL.py was run on both vep.txt files produced by Ensembl. The new files
+    were called revel_test_scores.csv and revel_training_scores.csv.
+
+The end result of the pipeline is four files. The first two contain genomic coordinate
+IDs, classifications, and scores on the training/test sets for EA. The second two contain
+genomic coordinate IDs, classifications, and scores on the training/test sets for REVEL.

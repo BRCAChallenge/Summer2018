@@ -7,7 +7,7 @@
 import sys # For command-line arguments
 import pandas as pd # For dataframes
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 #------------------------------------------------------------------------------------------------
 
 ## Extracts the variant identifier (HGVS, genomic coordinate, etc.) and pathogenicity of each

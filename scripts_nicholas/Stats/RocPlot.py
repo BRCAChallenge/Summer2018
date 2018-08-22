@@ -9,31 +9,48 @@ import sys # For command-line arguments
 import pandas as pd # For dataframes
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
+from sklearn.metrics import roc_auc_score
 sys.path.append('/Users/nicholaslenz/Desktop/Summer2018/scripts_nicholas')
-import MiscFunctions as mf
+import MiscFunctions as mf # adds misc functions
 #------------------------------------------------------------------------------------------------
 
-## Script that plots a predictor's true positive rate and false positive rate parameterized by
-#      the scoring threshold.
-#  @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
-#
+"""
+Script that plots a predictor's true positive rate and false positive rate parameterized by
+    the scoring threshold.
+    @param data_file : A csv-like file that contains both a variant's pathogenicty and its score.
+"""
 def RocPlot(data_file):
 	# Determines the separator type associated with the file format of the data file.
 	sep = mf.determine_separator(data_file)
+	df = pd.read_csv(sys.argv[1], sep=sep)
+
+	scores = (df['Score'].values).copy()
+	binary_classifications = df['Pathogenicity'].replace({'Pathogenic': 1,'Benign': 0})
+	AUC = roc_auc_score(list(binary_classifications.values), scores)
+	scores.sort()
+	
+	# Sets the resolution for the plot
+	granularity = 1
+	for index in range(len(scores)-1):
+		difference = scores[index + 1] - scores[index]
+		if( difference < granularity ):
+			granularity = difference
+	if ( granularity < .001 ):
+		granularity = .001
 
 	# Creates a partition of the interval [0,1]. Creates two empty lists; one will store the true
 	# positive rate and the other will store the false positive rates.
-	thresholds = [float(i)/100 for i in range(101)]
+	thresholds = [float(i)*granularity for i in range( int(1/granularity) + 1 )]
 	x = []
 	y = []
 
-	df = pd.read_csv(sys.argv[1], sep=',')
+
 
 	# Determines what term will be considered positive and which will be negative.
 	positive_term = 'Pathogenic'
 	negative_term = 'Benign'
-	positives = df[df['pathogenicity'] == positive_term].shape[0]
-	negatives = df[df['pathogenicity'] == negative_term].shape[0]
+	positives = df[df['Pathogenicity'] == positive_term].shape[0]
+	negatives = df[df['Pathogenicity'] == negative_term].shape[0]
 
 	# For each threshold in the partition, determines the true positive rate and the true negative
 	# rate for the data.
@@ -52,6 +69,8 @@ def RocPlot(data_file):
 
 		x.append(false_positive_rate)
 		y.append(true_positive_rate)
+
+
 
 	#------------------------------------------------------------------------------------------------
 	# Creates an empty figure, with total area of 1.
@@ -72,13 +91,16 @@ def RocPlot(data_file):
 	ax.grid(linestyle=':', linewidth=0.5, color='black')
 	ax.plot(x, y, color='blue', linewidth='3.0')
 	ax.plot([0,1], [0,1], color='orange', linestyle='--')
+	plt.title('ROC Plot of REVEL on Test Set')
+	ax.legend(['AUC: ' + str(round(AUC, 3))], loc=4)
 	plt.show()
 
 ################################ Main ################################
 
 """
-# arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
-# its score. The appropriate file format is:
+arg1 : The file that contains a variant's pathogenicity as classified by ENIGMA or ClinVar and
+       its score. The appropriate file format is:
+       
 ,pathogenicity,scores
 0,Benign,0.284
 1,Pathogenic,0.19
